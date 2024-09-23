@@ -1,0 +1,6 @@
+ell-ai
+openai
+tiny_fnc_engine
+
+requests
+beautifulsoup4
