@@ -1,9 +1,20 @@
-from src.assistant import process_user_query
+from src.assistant import Assistant
+from src.config import WELCOME_MESSAGE
 
 def main():
-    user_query = input("User: ")
-    response = process_user_query(user_query)
-    print(response)
+    assistant = Assistant.get_instance()
+    
+    print(WELCOME_MESSAGE)
+    
+    while True:
+        user_input = input("User:\n")
+        
+        if user_input.lower() == 'exit()' or user_input.lower() == 'quit()':
+            print("Goodbye!")
+            break
+        
+        response = assistant.process_message(user_input)
+        print("Assistant:", response)
 
 if __name__ == "__main__":
     main()

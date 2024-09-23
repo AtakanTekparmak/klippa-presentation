@@ -49,21 +49,27 @@ def load_system_prompt(
         print(f"Error: File not found at {file_path}")
         return ""
     
-def parse_function_calls(content: str) -> Tuple[str, bool]:
+def parse_model_response(content: str) -> Tuple[str, bool]:
     """
-    Parses the function calls from the content.
+    Parses the model response to get the 
+    assistant's response or function calls.
+
+    Args:
+        content (str): The model response.
+
+    Returns:
+        Tuple[str, bool]: The assistant's response and/or function calls.
     """
     # If the assistant is generating new user input, cut it
     if "User:" in content:
         content = content.split("User:")[0]
     try:
-        between_tags = content.split("<|function_calls|>")[1].split("<|end_function_calls|>")[0]
-        return json.loads(between_tags), True
-    except json.JSONDecodeError:
-        print("Error: Failed to decode JSON from function calls")
-        return [], False
-    except IndexError:
-        if "<|answer|>" in content:
+        if "<|function_calls|>" in content: 
+            between_tags = content.split("<|function_calls|>")[1]
+            if "<|end_function_calls|>" in between_tags:
+                between_tags = between_tags.split("<|end_function_calls|>")[0]
+            return json.loads(between_tags), True
+        elif "<|answer|>" in content:
             answer = content.split("<|answer|>")[1]
             answer = answer.split("<|end_answer|>")[0] if "<|end_answer|>" in answer else answer
 
@@ -74,3 +80,7 @@ def parse_function_calls(content: str) -> Tuple[str, bool]:
             return answer.strip(), False
         else:
             return content, False
+    except json.JSONDecodeError:
+        print("Error: Failed to decode JSON from function calls")
+        return [], False
+    
