@@ -1,1 +1,1 @@
-from tools.tools import get_weather
+from tools.tools import get_weather, web_search

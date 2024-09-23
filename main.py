@@ -4,7 +4,6 @@ import openai
 from tiny_fnc_engine import FunctionCallingEngine
 
 from utils import create_functions_schema, load_system_prompt, parse_function_calls
-from tools import get_weather
 
 # Declare constants
 MODEL_NAME = "lmstudio-community/Phi-3.5-mini-instruct-GGUF/Phi-3.5-mini-instruct-Q8_0.gguf"
@@ -36,10 +35,13 @@ def main():
     user_query = input("User: ")
     model_response = my_lmp(user_query)
     #print(f"Model response: {model_response}")
-    function_calls = parse_function_calls(model_response)
+    function_calls, success = parse_function_calls(model_response)
     #print(f"Function calls: {function_calls}")
-    results = engine.parse_and_call_functions(function_calls)
-    print(f"Assistant: {results[-1]}")
-    
+    if success: 
+        results = engine.parse_and_call_functions(function_calls)
+        print(f"Assistant: {results[-1] if results else 'No results'}")
+    else:
+        print(f"Assistant: {function_calls}")
+
 if __name__ == "__main__":
     main()

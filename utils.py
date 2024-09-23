@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict
+from typing import Any, Callable, Dict, Tuple
 import inspect
 import json
 
@@ -49,13 +49,28 @@ def load_system_prompt(
         print(f"Error: File not found at {file_path}")
         return ""
     
-def parse_function_calls(content: str) -> str:
+def parse_function_calls(content: str) -> Tuple[str, bool]:
     """
     Parses the function calls from the content.
     """
-    between_tags = content.split("<|function_calls|>")[1].split("<|end_function_calls|>")[0]
+    # If the assistant is generating new user input, cut it
+    if "User:" in content:
+        content = content.split("User:")[0]
     try:
-        return json.loads(between_tags)
+        between_tags = content.split("<|function_calls|>")[1].split("<|end_function_calls|>")[0]
+        return json.loads(between_tags), True
     except json.JSONDecodeError:
         print("Error: Failed to decode JSON from function calls")
-        return []
+        return [], False
+    except IndexError:
+        if "<|answer|>" in content:
+            answer = content.split("<|answer|>")[1]
+            answer = answer.split("<|end_answer|>")[0] if "<|end_answer|>" in answer else answer
+
+            # If there are thoughts after the answer, cut them
+            if "<|thoughts|>" in answer:
+                answer = answer.split("<|thoughts|>")[0]
+                
+            return answer.strip(), False
+        else:
+            return content, False
