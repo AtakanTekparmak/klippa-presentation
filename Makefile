@@ -31,6 +31,11 @@ run:
 	. $(VENV_NAME)/bin/activate && \
 	$(PYTHON) main.py
 
+# Run all the tests in the tests folder
+run_tests:
+	. $(VENV_NAME)/bin/activate && \
+	pytest tests/
+
 # Clean the virtual environment
 clean:
 	rm -rf $(VENV_NAME)
