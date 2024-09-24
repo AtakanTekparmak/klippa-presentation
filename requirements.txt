@@ -15,5 +15,8 @@ duckduckgo_search
 # Pydantic
 pydantic
 
+# FastHTML
+python-fasthtml
+
 # Testing
 pytest
