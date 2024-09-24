@@ -1,6 +1,6 @@
 from typing import List
 import ell
-from src.model import ai_assistant
+from src.model import ai_assistant, SYSTEM_PROMPT
 from src.engine import ToolCallingEngine
 from src.utils import parse_model_response
 
@@ -11,7 +11,9 @@ class Assistant:
     _instance = None
 
     def __init__(self):
-        self.message_history: List[ell.Message] = []
+        self.message_history: List[ell.Message] = [
+            ell.system(SYSTEM_PROMPT)
+        ]
         self.engine = ToolCallingEngine.get_instance()
 
     @classmethod
