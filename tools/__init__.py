@@ -1,1 +1,1 @@
-from tools.tools import get_weather, web_search
+from tools.tools import get_weather, get_random_city, web_search
