@@ -1,5 +1,6 @@
 from fasthtml.common import *
 from src.assistant import Assistant
+from src.utils import format_function_calls
 
 # Declare constants
 PORT = 5013
@@ -47,10 +48,21 @@ def send(msg: str, messages: list[str] = None):
     messages.append(msg.rstrip())
     
     # Use the Assistant class to process the message
-    response = assistant.process_message(msg.rstrip())
-    
-    return (ChatMessage(msg, True),    # The user's message
+    response, function_calls = assistant.process_message(msg.rstrip())
+
+    # If there are function calls, format the final response
+    if function_calls:
+        return (
+            ChatMessage(msg, True),    # The user's message
+            ChatMessage(format_function_calls(function_calls), False), # The chatbot's response
             ChatMessage(response, False), # The chatbot's response
-            ChatInput()) # And clear the input field via an OOB swap
+            ChatInput()
+        ) # And clear the input field via an OOB swap
+    else:
+        return (
+            ChatMessage(msg, True),    # The user's message
+            ChatMessage(response, False), # The chatbot's response
+            ChatInput() # And clear the input field via an OOB swap
+        )
 
 serve(port=PORT)

@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple, Any, Dict
 import ell
 from src.model import ai_assistant, SYSTEM_PROMPT
 from src.engine import ToolCallingEngine
@@ -22,7 +22,7 @@ class Assistant:
             cls._instance = cls()
         return cls._instance
 
-    def process_message(self, user_input: str) -> str:
+    def process_message(self, user_input: str) -> Tuple[str, List[Dict[str, Any]]]:
         """
         Process a message from the user
         in the multi-turn conversation.
@@ -48,9 +48,9 @@ class Assistant:
             self.message_history.append(ell.user(f"<|function_results|>\n{results}\n<|end_function_results|>"))
             final_response = ai_assistant(self.message_history).content[0].text
             self.message_history.append(ell.assistant(final_response))
-            return f"Assistant: \n {final_response}" if "Assistant:" not in final_response else final_response
+            return final_response, assistant_response
         else:
-            return f"Assistant: \n {assistant_response}" if "Assistant:" not in assistant_response else assistant_response
+            return assistant_response, None
 
     def reset_conversation(self):
         self.message_history = []

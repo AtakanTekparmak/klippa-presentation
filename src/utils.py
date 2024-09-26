@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, Tuple
+from typing import Any, Callable, Dict, Tuple, List
 import inspect
 import json
 
@@ -83,4 +83,10 @@ def parse_model_response(content: str) -> Tuple[str, bool]:
     except json.JSONDecodeError:
         print("Error: Failed to decode JSON from function calls")
         return [], False
+    
+def format_function_calls(function_calls: List[Dict[str, Any]]) -> str:
+    """
+    Formats the function calls to be sent to the user.
+    """
+    return json.dumps(function_calls, indent=2)
     
