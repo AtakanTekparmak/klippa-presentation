@@ -173,3 +173,6 @@ presentation_todo.md
 output/
 output/*
 output/**
+
+## .DS_Store
+.DS_Store
