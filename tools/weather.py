@@ -3,16 +3,6 @@ import random
 from bs4 import BeautifulSoup
 from urllib.parse import quote_plus
 
-def get_random_city() -> str:
-    """
-    Get a random city from the list of cities
-
-    Returns:
-        str: A random city from the list of cities
-    """
-    cities = ["Groningen", "Istanbul", "Enschede", "Hamburg", "Valencia", "Cairo", "Beijing", "Moscow", "Rio de Janeiro"]
-    return random.choice(cities)
-
 def get_weather(city: str) -> str:
     """
     Get the weather for a given city
