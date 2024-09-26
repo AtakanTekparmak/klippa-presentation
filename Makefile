@@ -18,7 +18,9 @@ help:
 	@echo "Targets:"
 	@echo "  1. install           Install dependencies and set up the environment (should be run first)"
 	@echo "  2. run               Run the main.py script"
-	@echo "  3. clean             Remove the virtual environment and its contents"
+	@echo "  3. run_interface     Run the fasthtml_app.py script"
+	@echo "  4. test              Run all the tests in the tests folder"	
+	@echo "  5. clean             Remove the virtual environment and its contents"
 
 # Install dependencies and set up the environment
 install: 
@@ -31,8 +33,13 @@ run:
 	. $(VENV_NAME)/bin/activate && \
 	$(PYTHON) main.py
 
+# Run the fasthtml_app.py script
+run_interface:
+	. $(VENV_NAME)/bin/activate && \
+	$(PYTHON) fasthtml_app.py
+
 # Run all the tests in the tests folder
-run_tests:
+test:
 	. $(VENV_NAME)/bin/activate && \
 	pytest tests/
 

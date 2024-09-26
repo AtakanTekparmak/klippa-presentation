@@ -60,6 +60,9 @@ def parse_model_response(content: str) -> Tuple[str, bool]:
     Returns:
         Tuple[str, bool]: The assistant's response and/or function calls.
     """
+    # Remove the dollar signs from the JSON string
+    content = content.replace("$", "")
+    
     # If the assistant is generating new user input, cut it
     if "User:" in content:
         content = content.split("User:")[0]
@@ -87,6 +90,12 @@ def parse_model_response(content: str) -> Tuple[str, bool]:
 def format_function_calls(function_calls: List[Dict[str, Any]]) -> str:
     """
     Formats the function calls to be sent to the user.
+
+    Args:
+        function_calls (List[Dict[str, Any]]): The function calls to format.
+
+    Returns:
+        str: The formatted function calls.
     """
     return json.dumps(function_calls, indent=2)
     

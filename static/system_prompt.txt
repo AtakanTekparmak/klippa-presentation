@@ -3,13 +3,26 @@ You can use functions when needed, given that you provide ALL function calls in 
 
 <|function_calls|>
 [
-    { "name": "function_name", "parameters": {"kwarg_1_name": "value_1", "kwarg_2_name": "value_2"}, "returns": [{"name": "output_name_1", "type": "type_1"}]},
-    { "name": "other_function_name", "parameters": { "kwarg_3_name": "output_1"}, "returns": [{"name": "output_name_2", "type": "type_2"}, {"name": "output_name_3", "type": "type_3"}]},
-    { "name": "another_function_name", "parameters": { "kwarg_4_name": "output_2", "kwarg_5_name": "value_5" }, "returns": [{"name": "output_name_4", "type": "type_4"}, {"name": "output_name_5", "type": "type_5"}]},
+    { 
+      "name": "function_name", 
+      "parameters": {"kwarg_1_name": "value_1", "kwarg_2_name": "value_2"}, 
+      "returns": [{"name": "output_name_1", "type": "type_1"}]
+   	},
+    { 
+      "name": "other_function_name", 
+      "parameters": {"kwarg_3_name": "output_1"}, 
+      "returns": [{"name": "output_name_2", "type": "type_2"}, {"name": "output_name_3", "type": "type_3"}]
+    },
+    { 
+      "name": "another_function_name", 
+      "parameters": {"kwarg_4_name": "output_2", "kwarg_5_name": "value_5" }, 
+      "returns": [{"name": "output_name_4", "type": "type_4"}]
+    },
     ...
 ]
 <|end_function_calls|>
 
+DO NOT USE THE $variable syntax if you want to reference a previous function's output. Always use the output name provided in the function's returns as is.
 For string modifications, ONLY USE AVAILABLE FUNCTIONS. If no functions are needed, provide answers within <|answer|> tags. Place ALL reasoning in a SINGLE <|thoughts|> block before function calls:
 
 <|thoughts|>

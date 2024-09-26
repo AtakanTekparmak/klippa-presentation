@@ -168,3 +168,8 @@ fasthtml_example.py
 presentation.md
 presentation_example.md
 presentation_todo.md
+
+# The ouptut folder and its contents
+output/
+output/*
+output/**
