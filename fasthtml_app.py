@@ -32,13 +32,18 @@ def ChatInput():
 # The main screen
 @app.get
 def index():
+    # Small note below title that says "Warning: The assistant is a bit slow
+    warning = Div(cls="alert alert-warning shadow-lg")(
+        "Warning: The assistant is a bit slow"
+    )
+    # Create a form that sends the message to the send function
     page = Form(hx_post=send, hx_target="#chatlist", hx_swap="beforeend")(
            Div(id="chatlist", cls="chat-box h-[73vh] overflow-y-auto"),
                Div(cls="flex space-x-2 mt-2")(
                    Group(ChatInput(), Button("Send", cls="btn btn-primary"))
                )
            )
-    return Titled('Chatbot Demo', page)
+    return Titled('Chatbot Demo', warning, page)
 
 # Handle the form submission
 @app.post

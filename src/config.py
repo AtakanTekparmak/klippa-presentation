@@ -1,5 +1,5 @@
 # Declare constants
-MODEL_NAME = "Qwen/Qwen2-7B-Instruct-GGUF/qwen2-7b-instruct-q8_0.gguf"
+MODEL_NAME = "NousResearch/Hermes-3-Llama-3.1-8B-GGUF/Hermes-3-Llama-3.1-8B.Q8_0.gguf"
 BASE_URL = "http://localhost:1234/v1"
 API_KEY = "test"    
 TOOLS_PATH = "tools/tools.py"
