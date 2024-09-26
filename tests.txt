@@ -1,0 +1,5 @@
+Can you save the current score for Fenerbahce vs Union St. Gilloise to a text file?
+
+Can you save the weather for Istanbul to a text file?
+
+Can you save the current score for Fenerbahce vs Union St. Gilloise and the weather for Istanbul into two different text files?
