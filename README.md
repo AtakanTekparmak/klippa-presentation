@@ -4,6 +4,8 @@
 
 #### presented by Atakan Tekparmak
 
+#### uses [tiny_fnc_engine](https://github.com/AtakanTekparmak/tiny_fnc_engine) for tool calling backend
+
 ## Requirements
 
 - Python 3.10+
